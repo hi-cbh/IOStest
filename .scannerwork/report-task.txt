@@ -1,0 +1,6 @@
+projectKey=cbh
+serverUrl=http://localhost:9000
+serverVersion=6.7.0.33306
+dashboardUrl=http://localhost:9000/dashboard/index/cbh
+ceTaskId=AWBKLAX-ir3bxO6P4RAH
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWBKLAX-ir3bxO6P4RAH
