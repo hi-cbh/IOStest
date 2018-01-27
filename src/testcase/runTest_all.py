@@ -28,8 +28,9 @@ from src.testcase.HTMLTestRunner import HTMLTestRunner
 1、成功是每天晚上8点发送邮件。
 2、失败次数达到N次后，发送邮件。
 将代码有，封装成类，方便理解
+只用一个账号，所以注意不要清理邮件。
 '''
-
+print("testdemo")
 
 if __name__ == "__main__":
 
@@ -61,7 +62,7 @@ if __name__ == "__main__":
     # 生成html
     now = time.strftime("%Y-%m-%d %H_%M_%S")
     filename_now = time.strftime("%Y_%m_%d_%H_%M_%S")
-    filename = reportPath + now + 'result.html'
+    filename = reportPath + now + '_result.html'
     fp = open(filename, 'wb')
     runner = HTMLTestRunner(stream=fp,title='Test Report', description='DialsMeasured IOS with: ')
     testResultReport = runner.run(suite)

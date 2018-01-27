@@ -4,6 +4,7 @@ from time import sleep
 from src.base.baseImage import BaseImage
 from src.mail.sendEmailSmtp import SendMail
 from appium.webdriver.common.mobileby import MobileBy
+from src.readwriteconf.saveData import save
 
 class Send(unittest.TestCase):
 
@@ -12,7 +13,7 @@ class Send(unittest.TestCase):
         self.username = username
         self.driver = driver
 
-    def send_action(self, subjetc="iosappiumpython", is_save=True):
+    def send_action(self, subjetc="iosappiumpython", is_save=True, is_accept = True):
         '''发送待附件的邮件：拍照后发送邮件'''
         try:
             # 写信
@@ -30,21 +31,10 @@ class Send(unittest.TestCase):
             print("=>附件")
             self.driver.find_element(MobileBy.ACCESSIBILITY_ID,"write fujian").click()
 
-            # 点击弹窗允许
-            print("=>点击允许")
-            self.driver.accept()
+            print("=>相册")
+            self.photo(is_accept)
 
-            time.sleep(3)
-            print("=>拍照")
-            self.driver.find_elements(MobileBy.CLASS_NAME,"UIAButton")[0].click()# 拍照
-
-            print("=>点击允许")
-            self.driver.accept()
-
-            print("=>开始拍照")
-            self.driver.click(r"id=>PhotoCapture")# 拍照
-            time.sleep(5)
-            self.driver.click(u"id=>使用照片")# 使用
+            time.sleep(4)
 
             print("=>发送")
             self.driver.click(u"id=>发送")
@@ -71,6 +61,7 @@ class Send(unittest.TestCase):
                 print('=>记录当前时间，')
                 value_time = str(round((time.time() - start), 2))
                 print('[发送邮件]: %r'  %value_time)
+                save.save("发送邮件带附件:%s" %value_time)
 
             time.sleep(3)
             # 返回
@@ -79,10 +70,11 @@ class Send(unittest.TestCase):
             print("返回")
             self.driver.get_sub_element("class=>XCUIElementTypeNavigationBar","class=>XCUIElementTypeButton",10)[0].click()
 
-            print("等待3秒")
-            time.sleep(3)
+            print("等待1秒")
+            time.sleep(1)
 
         except BaseException as error:
+            print("下载出错: %s" %error)
             BaseImage.screenshot(self.driver, "sendAction")
             time.sleep(5)
             self.fail("【发送邮件】出错")
@@ -96,8 +88,8 @@ class Send(unittest.TestCase):
 
             print("=>第三方发送邮件")
             s = SendMail(sender['name'], sender['pwd'], reveicer['name'])
-            self.assertTrue(s.sendMail('sendTestIOS','testIOS...'),"邮件发送失败")
-            time.sleep(10)
+            self.assertTrue(s.send_mail_test('sendTestIOS','testIOS...'),"邮件发送失败")
+            time.sleep(2)
 
             print("=>加载本地邮件封邮件")
             timeout = int(round(time.time() * 1000)) + 2*60 * 1000
@@ -121,7 +113,6 @@ class Send(unittest.TestCase):
 
             print("=>打开第一封邮件")
             self.driver.swipe(100,100,1,1,5)# 通过坐标点击第一封邮件
-            # self.driver.click("xpath=>//UIAApplication[1]/UIAWindow[1]/UIATableView[2]/UIATableCell[1]")
 
             print("=>点击转发")
             ls = self.driver.find_elements(MobileBy.IOS_PREDICATE,'type == "XCUIElementTypeButton" and visible == true')
@@ -130,10 +121,12 @@ class Send(unittest.TestCase):
             print("=>输入收件人: "+self.username)
             self.driver.find_elements(MobileBy.CLASS_NAME,'XCUIElementTypeTextField')[0].send_keys(self.username + "@139.com")
 
+            print("=>相册")
+            self.photo(is_accept= False)
+
             print("=>发送")
             self.driver.click(u"id=>发送")
             start = time.time()
-
 
             print("页面的百分百")
             # 等待两分钟
@@ -154,10 +147,68 @@ class Send(unittest.TestCase):
             print('=>记录当前时间，')
             value_time = str(round((time.time() - start), 2))
             print('[转发附件]: %r'  %value_time)
+            save.save("转发邮件带附件:%s" %value_time)
 
-
-            time.sleep(3)
-        except BaseException:
+            time.sleep(1)
+        except BaseException as error:
+            print("下载出错: %s" %error)
             BaseImage.screenshot(self.driver, "sendFWDAction")
             time.sleep(5)
             self.fail("【转发邮件】出错")
+
+
+
+
+    def photo_capture(self, is_accept=True):
+        '''拍照'''
+
+        if is_accept:
+            # 点击弹窗允许
+            print("=>点击允许")
+            self.driver.accept()
+
+        time.sleep(3)
+        print("=>拍照")
+        self.driver.find_elements(MobileBy.CLASS_NAME,"UIAButton")[0].click()# 拍照
+        if is_accept:
+            print("=>点击允许")
+            self.driver.accept()
+
+        print("=>开始拍照")
+        self.driver.click(r"id=>PhotoCapture")# 拍照
+
+        print("等待时间")
+        time.sleep(3)
+
+        print("=>使用照片")
+        self.driver.click(u"id=>使用照片")# 使用
+
+    def photo(self, is_accept=True):
+        '''相册'''
+
+        if is_accept:
+            # 点击弹窗允许
+            print("=>点击允许")
+            self.driver.accept()
+
+        time.sleep(3)
+        print("=>相册")
+        self.driver.find_elements(MobileBy.CLASS_NAME,"UIAButton")[1].click()
+
+
+        time.sleep(2)
+        print("=>选择第一个")
+        self.driver.swipe(110,90,1,1,2000)
+
+        print("等待时间")
+        time.sleep(2)
+        print("=>使用选择图片")
+        self.driver.swipe(50,80,1,1,2000)
+
+        # print("等待时间")
+        # time.sleep(2)
+        # print("=>使用选择图片")
+        # self.driver.swipe(40,50,1,1,2000)
+
+        print("=>选择完成")
+        self.driver.click(u"id=>完成")

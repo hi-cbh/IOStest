@@ -2,6 +2,7 @@
 from time import sleep
 import  unittest,time
 from src.base.baseImage import BaseImage
+from src.readwriteconf.saveData import save
 from appium.webdriver.common.mobileby import MobileBy
 
 class Login(unittest.TestCase):
@@ -15,23 +16,26 @@ class Login(unittest.TestCase):
     def login_action(self, is_save=True):
         '''基础登录功能'''
         try:
-            time.sleep(2)
-            print('=>向左滑屏幕')
-            s = self.driver.get_window_size()
-            self.driver.flick(s['width'] * 7 / 8, s["height"] / 2, -1 * s["width"] / 4, s["height"] / 2)
-
-            print("=>等待2秒")
-            time.sleep(2)
-
-            print("=>点击体验")
-            self.driver.swipe(100,418,1,1,2000)
-            # driver.click(r'perdicate=>type == "XCUIElementTypeButton"')
+            # time.sleep(2)
+            # print('=>向左滑屏幕')
+            # s = self.driver.get_window_size()
+            # self.driver.flick(s['width'] * 7 / 8, s["height"] / 2, -1 * s["width"] / 4, s["height"] / 2)
+            # time.sleep(2)
+            # self.driver.flick(s['width'] * 7 / 8, s["height"] / 2, -1 * s["width"] / 4, s["height"] / 2)
+            #
+            # print("=>等待2秒")
+            # time.sleep(2)
+            #
+            # print("=>点击体验")
+            # self.driver.swipe(100,488,1,1,2000)
+            # # driver.click(r'perdicate=>type == "XCUIElementTypeButton"')
 
             print('=>点击139邮件选项')
-            self.driver.find_element(MobileBy.IOS_PREDICATE, 'type == "XCUIElementTypeImage" AND name == "new_login_139mail_logo.png"').click()
+            # self.driver.find_element(MobileBy.IOS_PREDICATE, 'type == "XCUIElementTypeImage" AND name == "new_login_139mail_logo.png"').click()
+            self.driver.swipe(100,120,1,1,2000)
 
-            print("判断是否在登录账户页面")
-            self.assertTrue(self.driver.element_wait('perdicate=>type == "XCUIElementTypeTextField" AND value == "请输入账号"')!=None, "页面没有进入账户输入页面")
+            # print("判断是否在登录账户页面")
+            # self.assertTrue(self.driver.element_wait('perdicate=>type == "XCUIElementTypeTextField" AND value == "请输入账号"')!=None, "页面没有进入账户输入页面")
 
             print("=>输入用户名: " +  self.username)
             self.driver.type(r'perdicate=>type == "XCUIElementTypeTextField" AND value == "请输入账号"', self.username)
@@ -49,7 +53,9 @@ class Login(unittest.TestCase):
                 print('=>记录当前时间，')
                 value_time = str(round((time.time() - start), 2))
                 print('[登录时延]: %r'  %value_time)
+                save.save("账号登录:%s" %value_time)
 
+            # 耗时
             print("=>点击接受")
             self.driver.accept()
 
@@ -59,7 +65,7 @@ class Login(unittest.TestCase):
             print("=>等待邮件字段出现")
             self.assertTrue(self.driver.element_wait(u"id=>邮件",10)!=None, "页面没有进入账户输入页面")
 
-            sleep(2)
+            sleep(1)
 
         except BaseException as error:
             BaseImage.screenshot(self.driver, "loginAction")

@@ -8,7 +8,7 @@ from src.base.baseImage import BaseImage
 
 class Psam(object):
     
-    def __init__(self, version="11.1", device_name='ip5s', udid='d18e67a1afceec0758839f4d3323464c835ac574', bundle_id='com.cloudlinkin.139pushmail'):
+    def __init__(self, version="11.1", device_name='ip5s', udid='6517E5E2-97B2-490A-9BCF-893A09A44D5F', bundle_id='com.cloudlinkin.139pushmail',is_install=True):
         print("\n启动driver")
         start = time.time()
 
@@ -19,14 +19,18 @@ class Psam(object):
         desired_caps['udid'] = udid
         desired_caps['bundleId'] = bundle_id
         desired_caps['automationName'] = "XCUITest"
+        desired_caps['autoAcceptAlerts'] = 'true'
         desired_caps['simpleIsVisibleCheck'] = True #，则有副作用，当滚动到不在屏幕上的不可见组件时，滚动不起作用，
         desired_caps['preventWDAAttachments'] = True
         desired_caps['useNewWDA'] = False
         desired_caps['noReset'] = False
+        desired_caps['newCommandTimeout'] = 360
+        # desired_caps['app'] = '/Users/admin/Desktop/Build/Products/Debug-iphoneos/139PushMail.app'
         print("重新安装app")
-        desired_caps['app'] = '/Users/apple/Desktop/Build/Products/Debug-iphoneos/139PushMail.app'
-        # desired_caps['app'] = '/Users/apple/Desktop/Build/Products/Debug-iphonesimulator/139PushMail.app'
-        desired_caps['newCommandTimeout'] = 7200
+        if is_install:
+            # desired_caps['app'] = '/Users/admin/Desktop/Build/Products/Debug-iphoneos/139PushMail.app'
+            desired_caps['app'] = '/Users/admin/Desktop/Build/Products/Debug-iphonesimulator/139PushMail.app'
+
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
 
@@ -414,9 +418,12 @@ class Psam(object):
 
 
     def accept(self):
+        start = time.time()
         time.sleep(2)
-        self.driver.switch_to.alert.accept()
-
+        # self.driver.switch_to.alert.accept()
+        self.execute_script('mobile:alert',{'action' : 'accept'})
+        value_time = str(round((time.time() - start), 2))
+        print('[点击允许需要时间]: %r'  %value_time)
 
 
     def execute_script(self,script,*args):
@@ -682,11 +689,11 @@ if __name__ == '__main__':
     driver = Psam()
     login(driver)
     time.sleep(3)
-    test_contant(driver)
-    time.sleep(4)
-    print("end")
-
-
+    # test_contant(driver)
+    # time.sleep(4)
+    # print("end")
+    #
+    #
 
 
 

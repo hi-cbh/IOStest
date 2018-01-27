@@ -1,11 +1,23 @@
 # urs/bin/python
 # encoding:utf-8
+
+
+import os,sys
+
+
+
+# 添加环境路径，脚本
+p = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+print("path: %s" %p)
+sys.path.append(p+"/")
+
 import unittest,time
 from src.psam.psamio import Psam
 from src.testcase.v318.basecase.login import Login
 from src.testcase.v318.basecase.send import Send
 from src.readwriteconf.initData import InitData
 from src.base.baseImage import BaseImage
+from src.readwriteconf.saveData import save
 from src.mail.mailOperation import EmailOperation
 d = InitData().get_users()
 
@@ -20,16 +32,16 @@ class TestDown(unittest.TestCase):
 
     def setUp(self):
         try:
-            self.driver = Psam()
+            self.driver = Psam(is_install=False)
             print("success")
         except BaseException as error:
             self.fail("setUp启动出错！")
 
-        else:
-            EmailOperation(username+"@139.com", pwd).clear_forlder(['INBOX'])
-            time.sleep(10)
-
-            Login(self.driver,username,pwd).login_action(is_save=False)
+        # else:
+        #     EmailOperation(username+"@139.com", pwd).clear_forlder(['INBOX'])
+        #     time.sleep(5)
+        #
+        #     Login(self.driver,username,pwd).login_action(is_save=False)
 
 
     def tearDown(self):
@@ -38,7 +50,9 @@ class TestDown(unittest.TestCase):
     def testCaseDown(self):
         '''下载附件'''
         try:
-            Send(self.driver,username).send_action("appiumpythonios", is_save=False)
+
+
+            Send(self.driver,username).send_action("appiumpythonios", is_save=False, is_accept=False)
 
             print("=>加载本地邮件封邮件")
             timeout = int(round(time.time() * 1000)) + 2*60 * 1000
@@ -70,17 +84,19 @@ class TestDown(unittest.TestCase):
             start = time.time()
 
             print("等待完成")
-            self.driver.element_wait(u"id=>完成",120)
+            self.driver.element_wait(r"id=>Done",60)
             # self.driver.element_gone(u"id=>全部下载",120)
 
             print('=>记录当前时间，')
             value_time = str(round((time.time() - start), 2))
-            print('[下载附件]: %r'  %value_time)
+            print('[下载附件]: %r' %value_time)
+            save.save("附件下载:%s" %value_time)
 
             self.driver.click(u"id=>完成")
-            time.sleep(3)
+            time.sleep(1)
 
         except BaseException as error:
+            print("下载出错: %s" %error)
             BaseImage.screenshot(self.driver, "DownFile")
             time.sleep(5)
             self.fail("【下载附件】出错")

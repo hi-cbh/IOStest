@@ -440,7 +440,7 @@ class ReportClass(object):
         self._sort_fail()
         self._mergeict()
         self._save_date()
-        self.send()
+        # self.send()
 
 
 
