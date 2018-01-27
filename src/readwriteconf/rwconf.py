@@ -27,7 +27,7 @@ class ReadWriteConfFile:
         return cf.get(section, key)
 
     @staticmethod
-    def addsection(section):
+    def add_section(section):
         cf=ReadWriteConfFile.get_config_parser()
         all_sections=cf.sections()
         if section in all_sections:
@@ -44,7 +44,7 @@ class ReadWriteConfFile:
 
 
 if __name__ == '__main__':
-    ReadWriteConfFile.addsection('sendconf')
+    ReadWriteConfFile.add_section('sendconf')
     ReadWriteConfFile.set_section_value('sendconf', 'error', '0')
     x=ReadWriteConfFile.get_section_value('sendconf', 'error')
     print(x)
