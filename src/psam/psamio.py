@@ -24,7 +24,7 @@ class Psam(object):
         desired_caps['preventWDAAttachments'] = True
         desired_caps['useNewWDA'] = False
         desired_caps['noReset'] = False
-        desired_caps['newCommandTimeout'] = 360
+        desired_caps['newCommandTimeout'] = 180
         # desired_caps['app'] = '/Users/admin/Desktop/Build/Products/Debug-iphoneos/139PushMail.app'
         print("重新安装app")
         if is_install:

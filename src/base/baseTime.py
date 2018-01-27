@@ -36,7 +36,7 @@ class BaseTime(object):
         
         '''
 
-        ReadWriteConfFile.addsection('sendconf')
+        ReadWriteConfFile.add_section('sendconf')
         changetime = ReadWriteConfFile.get_section_value('sendconf', 'changetime', )
         changetime = int (changetime)
         i = datetime.datetime.now()
