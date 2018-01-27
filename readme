@@ -1,0 +1,8 @@
+1、在pip3环境下运行
+2、安装以下软件：
+pip3 install selenium
+pip3 install Appium-Python-Client
+pip3 install Pillow
+pip3 install pyzmail==1.0.3
+pip3 install imapclient
+brew install tesseract

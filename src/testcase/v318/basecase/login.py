@@ -19,12 +19,15 @@ class Login(unittest.TestCase):
             print('=>向左滑屏幕')
             s = self.driver.get_window_size()
             self.driver.flick(s['width'] * 7 / 8, s["height"] / 2, -1 * s["width"] / 4, s["height"] / 2)
+            time.sleep(2)
+            self.driver.flick(s['width'] * 7 / 8, s["height"] / 2, -1 * s["width"] / 4, s["height"] / 2)
 
             print("=>等待2秒")
             time.sleep(2)
 
             print("=>点击体验")
-            self.driver.swipe(100,418,1,1,2000)
+            # self.driver.click('perdicate=>type == "XCUIElementTypeButton" AND value == "立即体验"')
+            self.driver.swipe(100,490,1,1,2000)
             # driver.click(r'perdicate=>type == "XCUIElementTypeButton"')
 
             print('=>点击139邮件选项')

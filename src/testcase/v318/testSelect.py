@@ -27,8 +27,8 @@ class TestSelect(unittest.TestCase):
 
         else:
 
-            EmailOperation(username+"@139.com", pwd).clear_forlder(['INBOX'])
-            time.sleep(10)
+            # EmailOperation(username+"@139.com", pwd).clear_forlder(['INBOX'])
+            # time.sleep(10)
 
             Login(self.driver,username,pwd).login_action(is_save=False)
 

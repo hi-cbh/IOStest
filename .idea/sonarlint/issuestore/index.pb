@@ -63,3 +63,7 @@ O
 src/readwriteconf/calcSucPer.py,7/5/7577798b253c07914b6e776f3fb219f5d8cb2d11
 E
 src/testdemo/test2.py,a/f/af06b59cf78dc7552b1abfdb2f245758551f2cc4
+S
+#.idea/sonarlint/issuestore/index.pb,9/f/9fe84ebb15faf917b7def6236dba604453cc61e0
+6
+readme,f/7/f78a71af8bbf8cc2f6f313549d4da14bd3771359
