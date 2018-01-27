@@ -27,7 +27,7 @@ class ReadWriteConfFile:
         return cf.get(section, key)
 
     @staticmethod
-    def addsection(section):
+    def add_section(section):
         cf=ReadWriteConfFile.get_config_parser()
         all_sections=cf.sections()
         if section in all_sections:
