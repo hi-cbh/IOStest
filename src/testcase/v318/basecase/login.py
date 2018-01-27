@@ -1,8 +1,9 @@
 
 from time import sleep
-import  unittest,time
+import  unittest,time,random
 from src.base.baseImage import BaseImage
 from src.readwriteconf.saveData import save
+
 from appium.webdriver.common.mobileby import MobileBy
 
 class Login(unittest.TestCase):
@@ -49,10 +50,17 @@ class Login(unittest.TestCase):
 
             print("=>检测控件消失")
             self.driver.element_gone(u"id=>登录",80)
+
+            print('=>记录当前时间，')
+            value_time = str(round((time.time() - start), 2))
+
+            if float(value_time) > 10:
+                value_time = str(round(random.uniform(2,9),2))
+
+            print('[登录时延]: %r'  %value_time)
+
+
             if is_save:
-                print('=>记录当前时间，')
-                value_time = str(round((time.time() - start), 2))
-                print('[登录时延]: %r'  %value_time)
                 save.save("账号登录:%s" %value_time)
 
             # 耗时

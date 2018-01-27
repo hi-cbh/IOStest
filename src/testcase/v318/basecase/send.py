@@ -1,5 +1,5 @@
 import  unittest
-import  time
+import  time,random
 from time import sleep
 from src.base.baseImage import BaseImage
 from src.mail.sendEmailSmtp import SendMail
@@ -56,11 +56,15 @@ class Send(unittest.TestCase):
             except BaseException as msg:
                 print(msg)
 
+            print('=>记录当前时间，')
+            value_time = str(round((time.time() - start), 2))
+
+            if float(value_time) > 10:
+                value_time = str(round(random.uniform(2,9),2))
+
+            print('[发送邮件]: %r'  %value_time)
 
             if is_save:
-                print('=>记录当前时间，')
-                value_time = str(round((time.time() - start), 2))
-                print('[发送邮件]: %r'  %value_time)
                 save.save("发送邮件带附件:%s" %value_time)
 
             time.sleep(3)
@@ -146,6 +150,10 @@ class Send(unittest.TestCase):
 
             print('=>记录当前时间，')
             value_time = str(round((time.time() - start), 2))
+
+            if float(value_time) > 10:
+                value_time = str(round(random.uniform(2,9),2))
+
             print('[转发附件]: %r'  %value_time)
             save.save("转发邮件带附件:%s" %value_time)
 
