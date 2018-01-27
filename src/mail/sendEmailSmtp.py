@@ -26,6 +26,33 @@ class SendMail():
         name, addr = parseaddr(s)
         return formataddr((Header(name, 'utf-8').encode(), addr))
 
+    def send_mail_test(self, subject, body):
+        """发送辅助的邮件"""
+        smtp_server = 'smtp.139.com'
+        from_mail = self.username + '@139.com'
+        mail_pass = self.pwd
+        to_mail = self.receive + '@139.com'
+        msg = MIMEText(body, 'plain', 'utf-8')
+
+        msg['From'] = self._format_addr(u"拨测账号 <%s>" %from_mail)
+        msg['To'] = self._format_addr(u"接收者 <%s>" %to_mail)
+        msg['Subject'] = Header(subject, 'utf-8')
+
+        try:
+
+            s = smtplib.SMTP()
+            s.connect(smtp_server, "25")
+            s.login(from_mail, mail_pass)
+            s.sendmail(from_mail,to_mail,msg.as_string())
+            s.quit()
+            print("发送成功")
+        except smtplib.SMTPException as e:
+            print("发送邮件失败：%s" %e)
+            return False
+        else:
+            return True
+
+
 
     def send_mail_test(self, subject, body):
         '''发送辅助的邮件'''

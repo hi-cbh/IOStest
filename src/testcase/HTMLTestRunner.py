@@ -89,6 +89,8 @@ Version in 0.7.1
 
 # TODO: color stderr
 # TODO: simplify javascript using ,ore than 1 class in the class attribute?
+# urs/bin/python
+# encoding:utf-8
 
 import datetime
 import io

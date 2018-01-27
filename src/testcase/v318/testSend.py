@@ -24,20 +24,25 @@ class TestSend(unittest.TestCase):
 
     def setUp(self):
         try:
-            self.driver = Psam()
-        except BaseException as error:
+            self.driver = Psam(is_install=False)
+        except BaseException:
             self.fail("setUp启动出错！")
 
         else:
             EmailOperation(username+"@139.com", pwd).clear_forlder(['INBOX'])
-            time.sleep(10)
+            time.sleep(5)
 
-            Login(self.driver,username,pwd).login_action(is_save=False)
+            print("=>下拉")
+            self.driver.flick(150,100,150,400)
+            time.sleep(1)
+            print("=>下拉")
+            self.driver.flick(150,100,150,400)
+            time.sleep(1)
+            # Login(self.driver,username,pwd).login_action(is_save=False)
 
 
     def tearDown(self):
         self.driver.quit()
-        time.sleep(10)
         print("run end")
 
     def testCaseSend(self):
@@ -48,13 +53,9 @@ class TestSend(unittest.TestCase):
         '''转发邮件'''
         Send(self.driver,username).send_fwd_action(receiver, receiver)
 
-
-
-
-
 if __name__ == "__main__":
     suite = unittest.TestSuite()
     suite.addTest(TestSend('testCaseSend'))
-    suite.addTest(TestSend('testCaseFwdSend'))
+    # suite.addTest(TestSend('testCaseFwdSend'))
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

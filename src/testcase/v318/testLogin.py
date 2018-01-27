@@ -24,9 +24,9 @@ class TestLogin(unittest.TestCase):
         except BaseException as error:
             self.fail("setUp启动错误")
 
-        # else:
-        #     EmailOperation(username+"@139.com", pwd).clear_forlder(['INBOX'])
-        #     time.sleep(10)
+        else:
+            EmailOperation(username+"@139.com", pwd).clear_forlder(['INBOX'])
+            time.sleep(10)
 
 
     def tearDown(self):

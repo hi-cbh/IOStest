@@ -6,7 +6,6 @@ from src.testcase.v318.basecase.login import Login
 from src.readwriteconf.initData import InitData
 from src.base.baseImage import BaseImage
 from src.mail.mailOperation import EmailOperation
-from appium.webdriver.common.mobileby import MobileBy
 d = InitData().get_users()
 
 username = d['user1']
@@ -26,8 +25,8 @@ class TestContant(unittest.TestCase):
             self.fail("setUp启动出错！")
 
         else:
-            # EmailOperation(username+"@139.com", pwd).clear_forlder(['INBOX'])
-            # time.sleep(10)
+            EmailOperation(username+"@139.com", pwd).clear_forlder(['INBOX'])
+            time.sleep(10)
 
             Login(self.driver,username,pwd).login_action(is_save=False)
 
@@ -40,8 +39,7 @@ class TestContant(unittest.TestCase):
         try:
 
             print("点击联系人")
-            # self.driver.click(u"id=>联系人")
-            self.driver.find_element(MobileBy.IOS_PREDICATE, 'type == "XCUIElementTypeImage" AND name == "bottom_nav_contacts_normal"').click()
+            self.driver.click(u"id=>联系人")
             print("截图")
             BaseImage.screenshot(self.driver,"testConant")
 
@@ -54,7 +52,7 @@ class TestContant(unittest.TestCase):
             try:
                 while (int(round(time.time() * 1000) < timeout)):
                     print("=>下拉")
-                    self.driver.swipe_down()
+                    self.driver.swipeDown()
                     # 这里需要实际情况，是否添加时延
                     print("=>截图判断")
                     d = BaseImage.screenshot(self.driver,"testConant")
