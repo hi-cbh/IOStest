@@ -22,6 +22,7 @@ from src.testcase.v318.testDown import TestDown
 from src.testcase.v318.testContant import TestContant
 from src.reportlib.reportclass import ReportClass
 from src.testcase.HTMLTestRunner import HTMLTestRunner
+from src.base.basecmd import BaseCMD
 
 '''
 优化测试结果：
@@ -69,3 +70,5 @@ if __name__ == "__main__":
     fp.close()
 
     ReportClass(testResultReport.failures,testtxt,"",now).all()
+
+    BaseCMD.clear_app()

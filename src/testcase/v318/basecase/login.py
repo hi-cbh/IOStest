@@ -31,6 +31,7 @@ class Login(unittest.TestCase):
             # self.driver.swipe(100,488,1,1,2000)
             # # driver.click(r'perdicate=>type == "XCUIElementTypeButton"')
 
+            time.sleep(5)
             print('=>点击139邮件选项')
             # self.driver.find_element(MobileBy.IOS_PREDICATE, 'type == "XCUIElementTypeImage" AND name == "new_login_139mail_logo.png"').click()
             self.driver.swipe(100,120,1,1,2000)
