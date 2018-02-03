@@ -63,3 +63,25 @@ O
 src/readwriteconf/calcSucPer.py,7/5/7577798b253c07914b6e776f3fb219f5d8cb2d11
 E
 src/testdemo/test2.py,a/f/af06b59cf78dc7552b1abfdb2f245758551f2cc4
+M
+src/testcase/v318/testdemo.py,b/4/b402743c67367aaeba735aa06a04aec1e90797ab
+M
+src/testcase/newcode/demo2.py,2/9/29e429a70030462915b4778c08ef13d78c9cd4fc
+C
+src/base/basecmd.py,4/1/41bd1d0faa20d54a8120c0753379251eb8149a5e
+V
+&src/testcase/newcode/basecase/login.py,a/5/a52cd7de8d12a264034cd76641e618e278a992ad
+S
+#src/testcase/newcode/testContant.py,a/f/af32afaa774c014581082def01332c52af8887db
+Q
+!src/testcase/newcode/testLogin.py,a/9/a9324ff345fd741ec8d26752e8f09de53e2d8df7
+R
+"src/testcase/newcode/testSelect.py,1/a/1a0b63f00209e3857d570071818ef0cce29f461d
+P
+ src/testcase/newcode/testDown.py,3/e/3ebf70df1d4e667605d4a85508e268f3fbed6208
+P
+ src/testcase/newcode/testSend.py,2/1/216a0bbccb728a46fab0ec36682879bad9765244
+U
+%src/testcase/newcode/basecase/send.py,9/0/90079507c46f44b47057b021f24daf70f9ff8182
+S
+#src/testcase/runTest_all_newcode.py,b/b/bb9adfbad06329e02dfe06636a88646d5b849b45
